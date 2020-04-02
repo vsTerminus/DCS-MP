@@ -1,4 +1,4 @@
 # DCS-MP
 Multiplayer Missions for DCS
 
-Literally the worst missions ever.
+Literally the worst missions ever
