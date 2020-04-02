@@ -2,11 +2,12 @@ do
 
 	local function onLanding(event)            
 		if event.id == world.event.S_EVENT_LAND then                    
-			local u = event.initiator               
-			local c = u:getCoalition() -- 2 == blue
-			local n = event.place:getName()
+			local unit = event.initiator               
+			local coalition = unit:getCoalition() -- 2 == blue
+			local place = unit.place
+			local category = place.category
 			
-			if c == 2 and n == 'Bandar-e-Jask airfield' then
+			if coalition == 2 and category == 4 and place:getName() == 'Bandar-e-Jask airfield' then
 				trigger.action.setUserFlag(100, 1) -- Victory trigger
 			end	 
 			
