@@ -14,14 +14,14 @@ local function onLanding(event)
 			trigger.action.setUserFlag(100, 1) -- Victory trigger
 		end	 
 		
-		trigger.action.setUserFlag(200, 1) -- Grunt Birthday Party trigger
+		trigger.action.outSound("l10n/DEFAULT/Grunt Birthday Party.ogg")
 	end    
 end
 
 mist.addEventHandler(onLanding)   
 
 local msg = {}
-msg.text = 'Landing Listener Loaded' 
+msg.text = 'Landing Listener Loaded (r01)' 
 msg.displayTime = 1 
 msg.msgFor = {coa = {'all'}} 
 mist.message.add(msg)    
