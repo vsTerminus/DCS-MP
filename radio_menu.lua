@@ -1,3 +1,5 @@
+-- Tankers
+
 local tankers = {
 	['Texaco 1-1'] = {
 		hdg = '288',
@@ -55,7 +57,77 @@ local function spawnTanker(name)
 	mist.message.add(spawnMsg)  
 
 	mist.respawnGroup(tanker.group, true)	
+	trigger.action.outSound("l10n/DEFAULT/Can I Take Your Order.ogg")
 end
+
+
+-- Fighters
+
+local fighters = {
+	['MiG-29-Guns-Single'] = {
+		group = 'MiG-29-Guns-Single',
+		alt = '10,000 ft',
+		plane = 'MiG-29A x1 with Guns',
+		where = 'over Siri Island',
+	},
+	['MiG-29-Guns'] = {
+		group = 'MiG-29-Guns',
+		alt = '10,000 ft',
+		plane = 'MiG-29A x2 with Guns',
+		where = 'over Siri Island',
+	},
+	['MiG-29-Heaters-Single'] = {
+		group = 'MiG-29-Heaters-Single',
+		alt = '10,000 ft',
+		plane = 'MiG-29A x1 with Heaters',
+		where = 'over Siri Island',
+	},
+	['MiG-29-Heaters'] = {
+		group = 'MiG-29-Heaters',
+		alt = '10,000 ft',
+		plane = 'MiG-29A x2 with Heaters',
+		where = 'over Siri Island',
+	},
+	['MiG-15-Guns-Single'] = {
+		group = 'MiG-15-Guns-Single',
+		alt = '10,000 ft',
+		plane = 'MiG-15bis x1 with Guns',
+		where = 'over Siri Island',
+	},
+	['MiG-15-Guns'] = {
+		group = 'MiG-15-Guns',
+		alt = '10,000 ft',
+		plane = 'MiG-15bis x2 with Guns',
+		where = 'over Siri Island',
+	},
+	['Fw-190-Guns-Single'] = {
+		group = 'Fw-190-Guns-Single',
+		alt = '10,000 ft',
+		plane = 'Fw-190 x1 with Guns',
+		where = 'over Siri Island',
+	},
+	['Fw-190-Guns'] = {
+		group = 'Fw-190-Guns',
+		alt = '10,000 ft',
+		plane = 'Fw-190 x2 with Guns',
+		where = 'over Siri Island',
+	},
+}
+
+local function spawnFighter(name)
+	local fighter = fighters[name]
+	local spawnMsg = {}
+	
+	spawnMsg.text = string.format('Spawned AI Dogfight Opponent\n\nConfiguration: %s\nLocation: %s\nAltitude: %s', fighter.plane, fighter.where, fighter.alt)
+	spawnMsg.displayTime = 15
+	spawnMsg.msgFor = {coa = {'all'}} 
+	mist.message.add(spawnMsg)  
+
+	mist.respawnGroup(fighter.group, true)	
+	trigger.action.outSound("l10n/DEFAULT/Battlecruiser Operational.ogg")
+end
+
+
 
 
 -- Radio Menu
@@ -67,11 +139,22 @@ local TankerMenu = missionCommands.addSubMenu("Spawn Tanker",nil)
 	missionCommands.addCommand("S-3B (Basket)", TankerMenu, function() spawnTanker('Arco 1-1') end)
 
 local FighterMenu = missionCommands.addSubMenu("Spawn AI Fighter",nil)
-	missionCommands.addCommand("MiG-29A with Heaters", FighterMenu, function() trigger.action.setUserFlag(10, 1) end)
+	local MiG29Menu = missionCommands.addSubMenu("Mig-29A",FighterMenu)
+		missionCommands.addCommand("MiG-29A x1 with Guns", MiG29Menu, function() spawnFighter('MiG-29-Guns-Single') end)
+		missionCommands.addCommand("MiG-29A x2 with Guns", MiG29Menu, function() spawnFighter('MiG-29-Guns') end)
+		missionCommands.addCommand("MiG-29A x1 with Heaters", MiG29Menu, function() spawnFighter('MiG-29-Heaters-Single') end)
+		missionCommands.addCommand("MiG-29A x2 with Heaters", MiG29Menu, function() spawnFighter('MiG-29-Heaters') end)
+	local MiG15Menu = missionCommands.addSubMenu("MiG-15bis",FighterMenu)
+		missionCommands.addCommand("MiG-15 x1 with Guns", MiG15Menu, function() spawnFighter('MiG-15-Guns-Single') end)
+		missionCommands.addCommand("MiG-15 x2 with Guns", MiG15Menu, function() spawnFighter('MiG-15-Guns') end)
+	local Fw190Menu = missionCommands.addSubMenu("Fw-190",FighterMenu)
+		missionCommands.addCommand("Fw-190 x1 with Guns", Fw190Menu, function() spawnFighter('Fw-190-Guns-Single') end)
+		missionCommands.addCommand("Fw-190 x2 with Guns", Fw190Menu, function() spawnFighter('Fw-190-Guns') end)
+		
 
 
 local loadMsg = {}
-loadMsg.text = 'Radio Menus Loaded (r15)' 
+loadMsg.text = 'Radio Menus Loaded (r18)' 
 loadMsg.displayTime = 5 
 loadMsg.msgFor = {coa = {'all'}} 
 mist.message.add(loadMsg)    
