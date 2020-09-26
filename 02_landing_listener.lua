@@ -21,7 +21,7 @@ end
 mist.addEventHandler(onLanding)   
 
 local msg = {}
-msg.text = 'Landing Listener Loaded (r01)' 
-msg.displayTime = 1 
+msg.text = '02 - Landing Listener Loaded' 
+msg.displayTime = 5 
 msg.msgFor = {coa = {'all'}} 
 mist.message.add(msg)    

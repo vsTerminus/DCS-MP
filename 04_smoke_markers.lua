@@ -2,6 +2,7 @@
 -- Any zone named "Red Smoke <whatever>" should have red smoke. Same for White, Blue and Orange.
 -- and I don't want to do it with manual triggers; I just want to drop the trigger zone
 -- and load this script file once.
+-- Author: vsTerminus
 
 -- Credit Oliver: https://stackoverflow.com/a/22843701
 string.startsWith = function(self, str) 
@@ -41,7 +42,7 @@ for k,v in pairs(mist.DBs.zonesByName) do
 end
 
 local loadMsg = {}
-loadMsg.text = 'Automatic Smoke Markers Loaded (r1)' 
+loadMsg.text = '04 - Automatic Smoke Markers Loaded' 
 loadMsg.displayTime = 5 
 loadMsg.msgFor = {coa = {'all'}} 
 mist.message.add(loadMsg)   
