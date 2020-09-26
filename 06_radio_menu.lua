@@ -4,29 +4,39 @@
 
 local defaultSound = "l10n/DEFAULT/tsctra00.wav"
 
-local function spawnUnit(group)
-	if ( markPoint ) then
+local function spawnUnit(group, teleport)
+	if ( markPoint and teleport ) then
 		if ( group.sound ) then trigger.action.outSound(string.format("l10n/DEFAULT/%s", group.sound))
 		else trigger.action.outSound(defaultSound) end
 		
+		-- Get the correct altitude
+		local leadPos = mist.getLeadPos(group.name);
+		env.info((markPoint.y))
+		markPoint.y = leadPos.y;
+		env.info((markPoint.y))
+		
+		-- Move the group to the right x/z coords
 		local spawnVars = {}
 		spawnVars.groupName = group.name
 		spawnVars.action = 'clone'
 		spawnVars.point = markPoint
-		mist.teleportToPoint(spawnVars)
+		spawnVars.route = mist.getGroupRoute(group.name, 'task')
+		
+		newGroup = mist.teleportToPoint(spawnVars)
 		
 		local spawnMsg = {}
 		spawnMsg.txt = string.format("Spawned at your mark point: %s", group.description);
 		spawnMsg.displayTime = 15
 		spawnMsg.msgFor = {coa = {'all'}}
 		mist.message.add(spawnMsg)
+	
+	-- Consider: Instead of this, can we adjust the route to make it relative?
+	-- Compare the coords of the original route's first point with the coords of the mark point.
+	-- Adjust X and Z for all points along the route by the same offset.
 	else
-		local failMsg = {}
-		failMsg.txt = "Please create and delete a markpoint on the F10 map, then try again."
-		failMsg.displayTime = 10
-		failMsg.msgFor = {coa = {'all'}}
-		mist.message.add(failMsg)
-		trigger.action.outSound(string.format("l10n/DEFAULT/taderr01.wav"))
+		if ( group.sound ) then trigger.action.outSound(string.format("l10n/DEFAULT/%s", group.sound))
+		else trigger.action.outSound(defaultSound) end
+		mist.cloneGroup(group.name, true)	
 	end
 end
 
@@ -43,13 +53,13 @@ local WarBirdMenu		= missionCommands.addSubMenu("Warbirds",SpawnMenu)
 local HelicopterMenu	= missionCommands.addSubMenu("Helicopters",SpawnMenu)
 
 -- Third Level: Groups
-for key in pairs(spawnable.tankers) 	do missionCommands.addCommand(key, TankerMenu, 			function() spawnUnit(spawnable.tankers[key]) end) end
-for key in pairs(spawnable.armor) 		do missionCommands.addCommand(key, ArmorMenu,  			function() spawnUnit(spawnable.armor[key]) end) end
-for key in pairs(spawnable.infantry)	do missionCommands.addCommand(key, InfantryMenu,  		function() spawnUnit(spawnable.infantry[key]) end) end
-for key in pairs(spawnable.airdefences) do missionCommands.addCommand(key, AirDefenceMenu,  	function() spawnUnit(spawnable.airdefences[key]) end) end
-for key in pairs(spawnable.fighters) 	do missionCommands.addCommand(key, ModernFighterMenu,  	function() spawnUnit(spawnable.fighters[key]) end) end
-for key in pairs(spawnable.warbirds) 	do missionCommands.addCommand(key, WarBirdMenu,  		function() spawnUnit(spawnable.warbirds[key]) end) end
-for key in pairs(spawnable.helicopters)	do missionCommands.addCommand(key, HelicopterMenu,  	function() spawnUnit(spawnable.helicopters[key]) end) end
+for key in pairs(spawnable.tankers) 	do missionCommands.addCommand(key, TankerMenu, 			function() spawnUnit(spawnable.tankers[key], false) end) end
+for key in pairs(spawnable.armor) 		do missionCommands.addCommand(key, ArmorMenu,  			function() spawnUnit(spawnable.armor[key], true) end) end
+for key in pairs(spawnable.infantry)	do missionCommands.addCommand(key, InfantryMenu,  		function() spawnUnit(spawnable.infantry[key], true) end) end
+for key in pairs(spawnable.airdefences) do missionCommands.addCommand(key, AirDefenceMenu,  	function() spawnUnit(spawnable.airdefences[key], true) end) end
+for key in pairs(spawnable.fighters) 	do missionCommands.addCommand(key, ModernFighterMenu,  	function() spawnUnit(spawnable.fighters[key], true) end) end
+for key in pairs(spawnable.warbirds) 	do missionCommands.addCommand(key, WarBirdMenu,  		function() spawnUnit(spawnable.warbirds[key], true) end) end
+for key in pairs(spawnable.helicopters)	do missionCommands.addCommand(key, HelicopterMenu,  	function() spawnUnit(spawnable.helicopters[key], true) end) end
 
 local loadMsg = {}
 loadMsg.text = "06 - Radio Menus Loaded"
