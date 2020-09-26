@@ -28,22 +28,14 @@ end
 local function onMark(event)    
 	env.info(("onMark Fired"))
 	if ( event.id == world.event.S_EVENT_MARK_ADDED ) then
-		env.info(("onMark MARK_ADDED"))
 		trigger.action.outSound("l10n/DEFAULT/TGoYes01.wav")
 	end
 	if ( event.id == world.event.S_EVENT_MARK_REMOVED ) then
-		env.info(("onMark MARK_REMOVED"))
-		--env.info((string.format("Event: %s", print_r(event))))
 		if ( event.pos ) then
-			for k,v in pairs(event.pos)	do
-				env.info((k.x))
-				env.info((k.y))
-				env.info((k.z))
-			end
 			markPoint = event.pos
 			
 			local markMsg = {}
-			markMsg.text = string.format('MarkPoint Coordinates Recorded: %s, %s', event.pos.x, event.pos.y) 
+			markMsg.text = string.format('MarkPoint Coordinates Recorded: %s, %s, %s', event.pos.x, event.pos.y, event.pos.z) 
 			markMsg.displayTime = 10
 			markMsg.msgFor = {coa = {'all'}} 
 			mist.message.add(markMsg)

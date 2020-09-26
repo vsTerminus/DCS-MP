@@ -5,10 +5,6 @@
 local defaultSound = "l10n/DEFAULT/tsctra00.wav"
 
 local function spawnUnit(group)
-	env.info(('spawnUnit fired'))
-	env.info((group.name))
-	env.info((group.description))
-
 	if ( markPoint ) then
 		if ( group.sound ) then trigger.action.outSound(string.format("l10n/DEFAULT/%s", group.sound))
 		else trigger.action.outSound(defaultSound) end
