@@ -40,9 +40,3 @@ for k,v in pairs(mist.DBs.zonesByName) do
 	-- ZoneSmoke(k) -- Un/Comment to pop smoke one time only
 	timer.scheduleFunction(ZoneSmoke, k, timer.getTime() + 1) -- Un/Comment to pop smoke every 5 minutes to make it persistent
 end
-
-local loadMsg = {}
-loadMsg.text = '04 - Automatic Smoke Markers Loaded' 
-loadMsg.displayTime = 5 
-loadMsg.msgFor = {coa = {'all'}} 
-mist.message.add(loadMsg)   

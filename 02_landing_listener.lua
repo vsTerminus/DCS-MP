@@ -19,9 +19,3 @@ local function onLanding(event)
 end
 
 mist.addEventHandler(onLanding)   
-
-local msg = {}
-msg.text = '02 - Landing Listener Loaded' 
-msg.displayTime = 5 
-msg.msgFor = {coa = {'all'}} 
-mist.message.add(msg)    

@@ -24,7 +24,12 @@ spawnable.armor = {
 	['4x BTR-80s'] = {
 		name = 'BTR-1',
 		description = '4x APX BTR-80s',
-		sound = 'tvurdy00.wav',
+		sound = 'tvurdy00.wav', -- Alright, bring it on!
+	},
+	['4x T72 MBTs'] = {
+		name = 'T72-1',
+		description = '4x T72 Main Battle Tanks',
+		sound = 'ttardy00.wav', -- Ready to roll out!
 	},
 }
 
@@ -32,8 +37,18 @@ spawnable.armor = {
 spawnable.airdefences = {
 	['SA-6 SAM Site'] = {
 		name = 'KUB-1',
-		description = 'SA-6 Site with 3 Launchers and 1 Radar',
-		sound = 'tvkpss01.wav',
+		description = 'SA-6 Gainful (2k12 Куб) with 4 Launchers, 1 Straight Flush Radar, 1 P-19 EWR',
+		sound = 'tvkpss01.wav', -- I have ways of blowing things up
+	},
+	['4x ZU-23'] = {
+		name = 'ZU-1',
+		description = '4x ZU-23s in assorted configurations',
+		sound = 'tfbwht00.wav', -- Fired up
+	},
+	['SA-10 SAM Site'] = {
+		name = 'Grumble-1',
+		description = 'SA-10 Grumble (S-300) with a Command Post, Big Bird EWR, Clamshell TAR, Flap Lid TER, and 8 Launchers',
+		sound = 'TAdUpd07.wav', -- Nuclear Missile Ready
 	},
 }
 
@@ -62,6 +77,7 @@ spawnable.infantry = {
 	['10x Assorted Infantry'] = {
 		name = 'Infantry-1',
 		description = 'Ten Assorted Russian Infantry',
+		sound = 'tmawht03.wav', -- Gimme somethin to shoot
 	},
 }
 
@@ -70,6 +86,7 @@ spawnable.helicopters = {
 	['Mi-24V'] = {
 		name = 'Hind-1',
 		description = 'An Mi-24V Hind Attack Helicopter',
+		sound = 'pcowht03.wav',	-- Let us attack
 	},
 }
 
@@ -78,6 +95,17 @@ spawnable.boats = {
 	['Kirov'] = {
 		name = 'Kirov-1',
 		description = 'CGN 1144.2 Pyotr Velikiy Kirov',
+		sound = 'tbardy00.wav', -- Cattlebruiser Operational
+	},
+	['Kuznetsov'] = {
+		name = 'Kuznetsov-1',
+		description = 'CV 1143.5 Admiral Kuznetsov (2017)',
+		sound = 'pcaRdy00.wav', -- Carrier has arrived
+	},
+	['4x Cargo Ships'] = {
+		name = 'Cargo-1',
+		description = '4x Unarmed Cargo Ships',
+		sound = 'pprRdy00.wav',
 	},
 }
 
@@ -105,9 +133,3 @@ spawnable.tankers = {
 		description = 'KC-135 (Boom) Tanker, 220KIAS at 10,000ft. Contact on 134.0, TCN 34X',
 	},
 }
-
-local loadMsg = {}
-loadMsg.text = '05 - Spanwable Units Loaded' 
-loadMsg.displayTime = 5 
-loadMsg.msgFor = {coa = {'all'}} 
-mist.message.add(loadMsg)

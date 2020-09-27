@@ -47,9 +47,3 @@ end
 
 
 mist.addEventHandler(onMark)   
-
-local loadMsg = {}
-loadMsg.text = '03 - MarkPoint Listener Loaded' 
-loadMsg.displayTime = 5
-loadMsg.msgFor = {coa = {'all'}} 
-mist.message.add(loadMsg)

@@ -40,7 +40,7 @@ local function spawnUnit(group, teleport)
 	else
 		if ( group.sound ) then trigger.action.outSound(string.format("l10n/DEFAULT/%s", group.sound))
 		else trigger.action.outSound(defaultSound) end
-		mist.cloneGroup(group.name, true)	
+		mist.respawnGroup(group.name, true)	
 	end
 end
 
@@ -66,9 +66,3 @@ for key in pairs(spawnable.fighters) 	do missionCommands.addCommand(key, ModernF
 for key in pairs(spawnable.warbirds) 	do missionCommands.addCommand(key, WarBirdMenu,  		function() spawnUnit(spawnable.warbirds[key], true) end) end
 for key in pairs(spawnable.helicopters)	do missionCommands.addCommand(key, HelicopterMenu,  	function() spawnUnit(spawnable.helicopters[key], true) end) end
 for key in pairs(spawnable.boats)		do missionCommands.addCommand(key, BoatsMenu,  			function() spawnUnit(spawnable.boats[key], true) end) end
-
-local loadMsg = {}
-loadMsg.text = "06 - Radio Menus Loaded"
-loadMsg.displayTime = 30
-loadMsg.msgFor = {coa = {'all'}} 
-mist.message.add(loadMsg)
