@@ -24,6 +24,10 @@ local function spawnUnit(group, teleport)
 		
 		newGroup = mist.teleportToPoint(spawnVars)
 		
+		-- Drop smoke in the middle of the group
+		avgPoint = mist.getAvgGroupPos(newGroup.name)
+		trigger.action.smoke({x=avgPoint.x, y=avgPoint.y, z=avgPoint.z}, trigger.smokeColor.Red)
+		
 		local spawnMsg = {}
 		spawnMsg.txt = string.format("Spawned at your mark point: %s", group.description);
 		spawnMsg.displayTime = 15
