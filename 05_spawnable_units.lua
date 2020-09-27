@@ -73,6 +73,15 @@ spawnable.helicopters = {
 	},
 }
 
+-- "Boats" category
+spawnable.boats = {
+	['Kirov'] = {
+		name = 'Kirov-1',
+		description = 'CGN 1144.2 Pyotr Velikiy Kirov',
+	},
+}
+
+
 -- "Tankers" category
 spawnable.tankers = {
 	['KC-130 Basket'] = {

@@ -51,6 +51,7 @@ local AirDefenceMenu	= missionCommands.addSubMenu("Air Defenses",SpawnMenu)
 local ModernFighterMenu = missionCommands.addSubMenu("Modern Fighters",SpawnMenu)
 local WarBirdMenu		= missionCommands.addSubMenu("Warbirds",SpawnMenu)
 local HelicopterMenu	= missionCommands.addSubMenu("Helicopters",SpawnMenu)
+local BoatsMenu			= missionCommands.addSubMenu("Boats",SpawnMenu)
 
 -- Third Level: Groups
 for key in pairs(spawnable.tankers) 	do missionCommands.addCommand(key, TankerMenu, 			function() spawnUnit(spawnable.tankers[key], false) end) end
@@ -60,6 +61,7 @@ for key in pairs(spawnable.airdefences) do missionCommands.addCommand(key, AirDe
 for key in pairs(spawnable.fighters) 	do missionCommands.addCommand(key, ModernFighterMenu,  	function() spawnUnit(spawnable.fighters[key], true) end) end
 for key in pairs(spawnable.warbirds) 	do missionCommands.addCommand(key, WarBirdMenu,  		function() spawnUnit(spawnable.warbirds[key], true) end) end
 for key in pairs(spawnable.helicopters)	do missionCommands.addCommand(key, HelicopterMenu,  	function() spawnUnit(spawnable.helicopters[key], true) end) end
+for key in pairs(spawnable.boats)		do missionCommands.addCommand(key, BoatsMenu,  			function() spawnUnit(spawnable.boats[key], true) end) end
 
 local loadMsg = {}
 loadMsg.text = "06 - Radio Menus Loaded"
