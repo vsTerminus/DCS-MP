@@ -23,7 +23,7 @@ spawnable = {}
 spawnable.armor = {
 	['4x BTR-80s'] = {
 		name = 'BTR-1',
-		description = '4x APX BTR-80s',
+		description = '4x APC BTR-80s',
 		sound = 'tvurdy00.wav', -- Alright, bring it on!
 	},
 	['4x T72 MBTs'] = {
