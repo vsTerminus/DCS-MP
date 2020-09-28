@@ -2,13 +2,24 @@
 -- requires spawnable_units.lua
 -- requires mark_listener.lua
 
-local defaultSound = "l10n/DEFAULT/tsctra00.wav"
+local defaultSound = "tsctra00.wav"
 
-local function spawnUnit(group, teleport)
-	if ( markPoint and teleport ) then
-		if ( group.sound ) then trigger.action.outSound(string.format("l10n/DEFAULT/%s", group.sound))
-		else trigger.action.outSound(defaultSound) end
-		
+local function dumper(var)
+
+	for k,v in pairs(var) do
+		env.info((k))
+		if type(v) == 'table' then dumper(v) else env.info((k)) end
+	end
+
+end
+
+local function spawnUnit(args)
+
+	local group = args.group
+	local action = args.action -- Accepted actions are clone, teleport, respawn
+
+	-- If we have a markpoint, we can spawn units there instead of ME coords.
+	if ( markPoint.x ) then
 		-- Get the correct altitude
 		local leadPos = mist.getLeadPos(group.name);
 		env.info((markPoint.y))
@@ -18,31 +29,33 @@ local function spawnUnit(group, teleport)
 		-- Move the group to the right x/z coords
 		local spawnVars = {}
 		spawnVars.groupName = group.name
-		spawnVars.action = 'clone'
+		spawnVars.action = action
 		spawnVars.point = markPoint
-		spawnVars.route = mist.getGroupRoute(group.name, 'task')
+		spawnVars.route = mist.getGroupRoute(group.name, true)
+		dumper(spawnVars.route)
 		
 		newGroup = mist.teleportToPoint(spawnVars)
 		
 		-- Drop smoke in the middle of the group
 		avgPoint = mist.getAvgGroupPos(newGroup.name)
 		trigger.action.smoke({x=avgPoint.x, y=avgPoint.y, z=avgPoint.z}, trigger.smokeColor.Red)
-		
-		local spawnMsg = {}
-		spawnMsg.txt = string.format("Spawned at your mark point: %s", group.description);
-		spawnMsg.displayTime = 15
-		spawnMsg.msgFor = {coa = {'all'}}
-		mist.message.add(spawnMsg)
 	
-	-- Consider: Instead of this, can we adjust the route to make it relative?
-	-- Compare the coords of the original route's first point with the coords of the mark point.
-	-- Adjust X and Z for all points along the route by the same offset.
-	else
-		if ( group.sound ) then trigger.action.outSound(string.format("l10n/DEFAULT/%s", group.sound))
-		else trigger.action.outSound(defaultSound) end
+	else -- If no mark point defined (yet), just respawn the group at ME coords.
 		mist.respawnGroup(group.name, true)	
 	end
+	
+	-- Tell the user exactly what spawned
+	local msg = {}
+	msg.text = group.description
+	msg.displayTime = 15
+	msg.msgFor = {coa = {'all'}}
+	if ( group.sound ) then msg.sound = group.sound else msg.sound = defaultSound end
+	mist.message.add(msg)
+	
 end
+
+-- Note: Re-do this so that it can build the radio menu structure 100% dynamically based on the units table structure.
+-- Then we can add categories without having to update this list also.
 
 -- Radio Top Level Menu
 local SpawnMenu			= missionCommands.addSubMenu("Spawn",nil)
@@ -58,11 +71,11 @@ local HelicopterMenu	= missionCommands.addSubMenu("Helicopters",SpawnMenu)
 local BoatsMenu			= missionCommands.addSubMenu("Boats",SpawnMenu)
 
 -- Third Level: Groups
-for key in pairs(spawnable.tankers) 	do missionCommands.addCommand(key, TankerMenu, 			function() spawnUnit(spawnable.tankers[key], false) end) end
-for key in pairs(spawnable.armor) 		do missionCommands.addCommand(key, ArmorMenu,  			function() spawnUnit(spawnable.armor[key], true) end) end
-for key in pairs(spawnable.infantry)	do missionCommands.addCommand(key, InfantryMenu,  		function() spawnUnit(spawnable.infantry[key], true) end) end
-for key in pairs(spawnable.airdefences) do missionCommands.addCommand(key, AirDefenceMenu,  	function() spawnUnit(spawnable.airdefences[key], true) end) end
-for key in pairs(spawnable.fighters) 	do missionCommands.addCommand(key, ModernFighterMenu,  	function() spawnUnit(spawnable.fighters[key], true) end) end
-for key in pairs(spawnable.warbirds) 	do missionCommands.addCommand(key, WarBirdMenu,  		function() spawnUnit(spawnable.warbirds[key], true) end) end
-for key in pairs(spawnable.helicopters)	do missionCommands.addCommand(key, HelicopterMenu,  	function() spawnUnit(spawnable.helicopters[key], true) end) end
-for key in pairs(spawnable.boats)		do missionCommands.addCommand(key, BoatsMenu,  			function() spawnUnit(spawnable.boats[key], true) end) end
+for key in pairs(spawnable.tankers) 	do missionCommands.addCommand(key, TankerMenu, 			function() spawnUnit({group=spawnable.tankers[key], action='respawn'}) end) end
+for key in pairs(spawnable.armor) 		do missionCommands.addCommand(key, ArmorMenu,  			function() spawnUnit({group=spawnable.armor[key], action='clone'}) end) end
+for key in pairs(spawnable.infantry)	do missionCommands.addCommand(key, InfantryMenu,  		function() spawnUnit({group=spawnable.infantry[key], action='clone'}) end) end
+for key in pairs(spawnable.airdefences) do missionCommands.addCommand(key, AirDefenceMenu,  	function() spawnUnit({group=spawnable.airdefences[key], action='clone'}) end) end
+for key in pairs(spawnable.fighters) 	do missionCommands.addCommand(key, ModernFighterMenu,  	function() spawnUnit({group=spawnable.fighters[key], action='clone'}) end) end
+for key in pairs(spawnable.warbirds) 	do missionCommands.addCommand(key, WarBirdMenu,  		function() spawnUnit({group=spawnable.warbirds[key], action='clone'}) end) end
+for key in pairs(spawnable.helicopters)	do missionCommands.addCommand(key, HelicopterMenu,  	function() spawnUnit({group=spawnable.helicopters[key], action='clone'}) end) end
+for key in pairs(spawnable.boats)		do missionCommands.addCommand(key, BoatsMenu,  			function() spawnUnit({group=spawnable.boats[key], action='clone'}) end) end
