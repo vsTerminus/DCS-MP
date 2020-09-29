@@ -1,7 +1,6 @@
 markPoint = {}
 
 local function onMark(event)    
-	env.info(("onMark Fired"))
 	if ( event.id == world.event.S_EVENT_MARK_ADDED ) then
 		trigger.action.outSound("l10n/DEFAULT/TGoYes01.wav")
 	end
