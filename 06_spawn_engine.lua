@@ -1,31 +1,57 @@
---local spawnable = require("spawnable_spawnable.lua")
--- requires spawnable_units.lua
--- requires mark_listener.lua
-
 local defaultSound = "tsctra00.wav"
+
+local function relativeRoute(group)
+	env.info(("Adjusting waypoints relative to markpoint"))
+	local oldRoute = mist.getGroupRoute(group.name, true)
+	dumper(oldRoute)
+	local newRoute = oldRoute
+	
+	env.info((string.format("Markpoint is at %0.02f, %0.02f, WP1 is at %0.02f, %0.02f", markPoint.x, markPoint.z, oldRoute[1].x, oldRoute[1].y)));
+	local Xdiff = markPoint.x - oldRoute[1].x
+	local Ydiff = markPoint.z - oldRoute[1].y -- markPoint is vec3, route wps are vec2
+	env.info((string.format("Offset: %0.2f X, %0.2f Y", Xdiff, Ydiff)))
+	
+	for i,wp in pairs(newRoute) do
+		env.info((string.format("WP altitude: %d", wp.alt)))
+		if ( wp.action ~= 'Landing' ) then		-- Don't interfere with Landing WPs - they break if they aren't on an airfield.
+			newRoute[i].x = wp.x + Xdiff
+			newRoute[i].y = wp.y + Ydiff
+		end
+	end
+	return newRoute
+end
 
 function spawnUnit(args)
 
 	local unitId = args.unit
 	local group = args.group
-	local action = args.action -- Accepted actions are clone, teleport, respawn
+	local action = group.action -- Accepted actions are clone, teleport, respawn
 	local cat = args.category -- Accepted categories are land, water, air
 
 	-- If we have a markpoint, we can spawn units there instead of ME coords.
-	if ( markPoint.x ) then
-		
-		-- Move the group to the right x/z coords
+	if ( markPoint.x ) then		
 		local spawnVars = {}
 		spawnVars.groupName = group.name
-		spawnVars.action = action
+		spawnVars.action = group.action
 		spawnVars.point = markPoint
-		if args.route then spawnVars.route = args.route else spawnVars.route = mist.getGroupRoute(group.name, true) end
-		--dumper(spawnVars.route)
 		
+		-- Offset the route
+		if ( group.relative ) then
+			spawnVars.route = relativeRoute(group)
+			dumper(spawnVars.route)
+		else
+			spawnVars.route = mist.getGroupRoute(group.name, true) -- Absolute waypoints
+		end
+		
+		-- Fix starting altitude, now that we have the route laid in.
+		local wp1Alt = spawnVars.route[1].alt
+		if ( wp1Alt > markPoint.y ) then spawnVars.point.y = wp1Alt end
+		
+		-- Spawn the group
 		newGroup = mist.teleportToPoint(spawnVars)
 		
 		-- Need to only drop smoke for ground units, or it breaks things.
-		if ( cat ~= 'air' ) then
+		if ( cat ~= 'air' and group.smoke ) then
 			-- Drop smoke in the middle of the group
 			avgPoint = mist.getAvgGroupPos(newGroup.name)
 			trigger.action.smoke({x=avgPoint.x, y=avgPoint.y, z=avgPoint.z}, trigger.smokeColor.Red)
@@ -43,26 +69,4 @@ function spawnUnit(args)
 	if ( group.sound ) then msg.sound = group.sound else msg.sound = defaultSound end
 	mist.message.add(msg)
 	
-end
-
--- calls spawnUnit after it makes some changes to the group's route.
-function spawnTanker(args)
-	if markPoint.x then
-		local oldRoute = mist.getGroupRoute(args.group.name, true)
-		local newRoute = oldRoute
-		
-		-- Start at client's position, but 2km ahead.
-		newRoute[1].x = markPoint.x
-		newRoute[1].y = markPoint.z
-		
-		-- Go 90nm North
-		newRoute[2].x = markPoint.x + 166680
-		newRoute[2].y = markPoint.z
-		
-		
-		-- Pass the new route to spawnUnit
-		args.route = newRoute
-	end
-	
-	spawnUnit(args)
 end
