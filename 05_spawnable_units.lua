@@ -183,17 +183,41 @@ spawnable.fawacs = {
 
 -- "Boats" friendly category
 spawnable.fboats = {
+	['CVN-74 John C. Stennis'] = {
+		name = 'CVN-74 John C. Stennis 1',
+		description = 'CVN-74 John C. Stennis. ATC 127, TCN 74, ICLS 7',
+		sound = 'pcaRdy00.wav',
+		smoke = false,
+		relative = true,
+		action = 'respawn',
+	},
 	['CVN-73 George Washington'] = {
 		name = 'CVN-73 George Washington 1',
-		description = 'Friendly CVN-73 George Washington Super Carrier',
+		description = 'CVN-73 George Washington. ATC 129, TCN 73, ICLS 8',
+		sound = 'pcaRdy00.wav',
+		smoke = false,
+		relative = true,
+		action = 'respawn',
+	},
+	['CV 1143.5 Admiral Kuznetsov (2017)'] = {
+		name = 'Super Kuznetsov 1',
+		description = 'CV 1143.5 Admiral Kuznetsov (2017). ATC 128',
 		sound = 'pcaRdy00.wav',
 		smoke = false,
 		relative = true,
 		action = 'respawn',
 	},
 	['CV 1143.5 Admiral Kuznetsov'] = {
-		name = 'Super Kuznetsov 1',
-		description = 'CV 1143.5 Admiral Kuznetsov (2017) Super Carrier',
+		name = 'Kuznetsov 1',
+		description = 'CV 1143.5 Admiral Kuznetsov. ATC 126',
+		sound = 'pcaRdy00.wav',
+		smoke = false,
+		relative = true,
+		action = 'respawn',
+	},
+	['LHA Tarawa'] = {
+		name = 'LHA-1 Tarawa 1',
+		description = 'LHA Tarawa. ATC 125, TCN 76, ICLS 5',
 		sound = 'pcaRdy00.wav',
 		smoke = false,
 		relative = true,
