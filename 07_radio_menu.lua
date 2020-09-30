@@ -19,6 +19,7 @@ local function addRadioMenus()
 
 			-- Second Level: Categories
 			local FTankerMenu 		= missionCommands.addSubMenuForGroup(groupId,"Tankers",FriendlyMenu)
+			local FAWACSMenu 		= missionCommands.addSubMenuForGroup(groupId,"AWACS",FriendlyMenu)
 			local FBoatMenu			= missionCommands.addSubMenuForGroup(groupId,"Boats",FriendlyMenu)
 			
 			local ArmorMenu 		= missionCommands.addSubMenuForGroup(groupId,"Armor",HostileMenu)
@@ -27,11 +28,14 @@ local function addRadioMenus()
 			local ModernFighterMenu = missionCommands.addSubMenuForGroup(groupId,"Modern Fighters",HostileMenu)
 			local WarBirdMenu		= missionCommands.addSubMenuForGroup(groupId,"Warbirds",HostileMenu)
 			local HelicopterMenu	= missionCommands.addSubMenuForGroup(groupId,"Helicopters",HostileMenu)
+			local AWACSMenu 		= missionCommands.addSubMenuForGroup(groupId,"AWACS",HostileMenu)
 			local BoatMenu			= missionCommands.addSubMenuForGroup(groupId,"Boats",HostileMenu)
 
 			-- Third Level: Groups
 			for key in pairs(spawnable.ftankers) 	do missionCommands.addCommandForGroup(groupId, key, FTankerMenu,  			
 				function() spawnUnit({unit=unitId, group=spawnable.ftankers[key], category='air', sound=true}) end) end	
+			for key in pairs(spawnable.fawacs) 		do missionCommands.addCommandForGroup(groupId, key, FAWACSMenu,  			
+				function() spawnUnit({unit=unitId, group=spawnable.fawacs[key], category='air', sound=true}) end) end	
 			for key in pairs(spawnable.fboats) 		do missionCommands.addCommandForGroup(groupId, key, FBoatMenu,  			
 				function() spawnUnit({unit=unitId, group=spawnable.fboats[key], category='air', sound=true}) end) end	
 				
@@ -47,6 +51,8 @@ local function addRadioMenus()
 				function() spawnUnit({unit=unitId, group=spawnable.warbirds[key], category='air', sound=true}) end) end
 			for key in pairs(spawnable.helicopters)	do missionCommands.addCommandForGroup(groupId, key, HelicopterMenu,  	
 				function() spawnUnit({unit=unitId, group=spawnable.helicopters[key], category='air', sound=true}) end) end
+			for key in pairs(spawnable.awacs)	do missionCommands.addCommandForGroup(groupId, key, AWACSMenu,  	
+				function() spawnUnit({unit=unitId, group=spawnable.awacs[key], category='air', sound=true}) end) end
 			for key in pairs(spawnable.boats)		do missionCommands.addCommandForGroup(groupId, key, BoatMenu,  			
 				function() spawnUnit({unit=unitId, group=spawnable.boats[key], category='water', sound=true}) end) end
 				

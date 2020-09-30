@@ -148,6 +148,39 @@ spawnable.boats = {
 	},
 }
 
+-- "AWACS" category
+spawnable.awacs = {
+	['A-50'] = {
+		name = 'A-50 1',
+		description = 'A-50 AWACS at 35,000ft',
+		sound = 'pabYes01.wav',
+		smoke = false,
+		relative = true,
+		action = 'clone',
+	},
+}
+		
+
+-- "AWACS" friendly category
+spawnable.fawacs = {
+	['E-3A Sentry'] = {
+		name = 'E-3A 1',
+		description = 'E-3A Sentry at 35,000ft. Contact "Overlord" on 140.0',
+		sound = 'pabRdy00.wav', -- Warp Field Stabilized
+		smoke = false,
+		relative = true,
+		action = 'clone',
+	},
+	['E-2D Hawkeye'] = {
+		name = 'E-2D 1',
+		description = 'E-2D Hawkeye at 35,000ft. Contact "Magic" on 141.0',
+		sound = 'pabPss00.wav', -- We sense a soul in search of answers
+		smoke = false,
+		relative = true,
+		action = 'clone',
+	},
+}
+
 -- "Boats" friendly category
 spawnable.fboats = {
 	['CVN-73 George Washington'] = {
