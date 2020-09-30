@@ -158,11 +158,19 @@ spawnable.fboats = {
 		relative = true,
 		action = 'respawn',
 	},
+	['CV 1143.5 Admiral Kuznetsov'] = {
+		name = 'Super Kuznetsov 1',
+		description = 'CV 1143.5 Admiral Kuznetsov (2017) Super Carrier',
+		sound = 'pcaRdy00.wav',
+		smoke = false,
+		relative = true,
+		action = 'respawn',
+	},
 }
 
 -- "Tankers" friendly category
 spawnable.ftankers = {
-	['KC-130 Basket'] = {
+	['Basket KC-130'] = {
 		name = 'Texaco 1',
 		description = 'KC-130 (Basket) Tanker, 255KIAS at 15,000ft. Contact on 130.0, TCN 30X',
 		sound = 'Can I Take Your Order.ogg',
@@ -170,7 +178,7 @@ spawnable.ftankers = {
 		relative = true,
 		action = 'respawn',
 	},
-	['KC-135MPRS Basket'] = {
+	['Basket KC-135MPRS '] = {
 		name = 'Texaco 2',
 		description = 'KC-135MPRS (Basket) Tanker, 270KIAS at 25,000ft. Contact on 131.0, TCN 31X',
 		sound = 'Can I Take Your Order.ogg',
@@ -178,7 +186,7 @@ spawnable.ftankers = {
 		relative = true,
 		action = 'respawn',
 	},
-	['S-3B Basket'] = {
+	['Basket S-3B '] = {
 		name = 'Texaco 3',
 		description = 'S-3B (Basket) Tanker, 270KIAS at 25,000ft. Contact on 132.0, TCN 32X',
 		sound = 'Can I Take Your Order.ogg',
@@ -186,7 +194,7 @@ spawnable.ftankers = {
 		relative = true,
 		action = 'respawn',
 	},
-	['KC-135 Boom (Fast)'] = {
+	['Boom KC-135 (Fast)'] = {
 		name = 'Shell 1',
 		description = 'KC-135 (Boom) Tanker, 270KIAS at 25,000ft. Contact on 133.0, TCN 33X',
 		sound = 'Can I Take Your Order.ogg',
@@ -194,10 +202,18 @@ spawnable.ftankers = {
 		relative = true,
 		action = 'respawn',
 	},
-	['KC-135 Boom (Slow)'] = {
+	['Boom KC-135 (Slow)'] = {
 		name = 'Shell 2',
 		description = 'KC-135 (Boom) Tanker, 220KIAS at 10,000ft. Contact on 134.0, TCN 34X',
 		sound = 'Can I Take Your Order.ogg',
+		smoke = false,
+		relative = true,
+		action = 'respawn',
+	},
+	['Basket Il-78M'] = {
+		name = 'Texaco 4',
+		description = 'Il-78M (Basket) Tanker, 270KIAS at 25,000ft. Contact on 135.0, No TCN',
+		sound = 'tvkpss00.wav', -- This is very interesting, but stupid
 		smoke = false,
 		relative = true,
 		action = 'respawn',
