@@ -21,6 +21,25 @@ local function relativeRoute(group)
 	return newRoute
 end
 
+function printSpawned(args)
+	local group = args.group
+	local msg = {}
+	msg.text = string.format('Respawned: %s', group.description)
+	msg.displayTime = 20
+	msg.msgFor = {coa = {'all'}}
+	if ( args.sound ) then
+		if ( group.sound ) then msg.sound = group.sound else msg.sound = defaultSound end
+	end
+	mist.message.add(msg)
+end
+
+-- Don't move, just respawn the group as defined in the ME
+function respawnUnit(args)
+	mist.respawnGroup(args.group.name, true)
+	printSpawned(args)
+end
+	
+-- Spawn the unit at a custom location defined by the markpoint
 function spawnUnit(args)
 
 	local unitId = args.unit
@@ -58,15 +77,8 @@ function spawnUnit(args)
 		end
 	
 	else -- If no mark point defined (yet), just respawn the group at ME coords.
-		mist.respawnGroup(group.name, true)	
+		respawnUnit(args)
 	end
 	
-	-- Tell the user exactly what spawned
-	local msg = {}
-	msg.text = string.format('Spawned: %s', group.description)
-	msg.displayTime = 20
-	msg.msgFor = {coa = {'all'}}
-	if ( group.sound ) then msg.sound = group.sound else msg.sound = defaultSound end
-	mist.message.add(msg)
-	
+	printSpawned(args)	
 end
