@@ -42,6 +42,9 @@ end
 -- Spawn the unit at a custom location defined by the markpoint
 function spawnUnit(args)
 
+	env.info("spawnUnit called with:")
+	dumper(args)
+
 	local unitId = args.unit
 	local group = args.group
 	local action = group.action -- Accepted actions are clone, teleport, respawn

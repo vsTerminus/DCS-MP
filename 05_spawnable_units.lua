@@ -169,15 +169,15 @@ spawnable.fawacs = {
 		sound = 'pabRdy00.wav', -- Warp Field Stabilized
 		smoke = false,
 		relative = true,
-		action = 'clone',
+		action = 'respawn',
 	},
 	['E-2D Hawkeye'] = {
 		name = 'E-2D 1',
-		description = 'E-2D Hawkeye at 35,000ft. Contact "Magic" on 141.0',
+		description = 'E-2D Hawkeye at 30,000ft. Contact "Magic" on 141.0',
 		sound = 'pabPss00.wav', -- We sense a soul in search of answers
 		smoke = false,
 		relative = true,
-		action = 'clone',
+		action = 'respawn',
 	},
 }
 
