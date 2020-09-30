@@ -75,10 +75,8 @@ function spawnUnit(args)
 			avgPoint = mist.getAvgGroupPos(newGroup.name)
 			trigger.action.smoke({x=avgPoint.x, y=avgPoint.y, z=avgPoint.z}, trigger.smokeColor.Red)
 		end
-	
+		printSpawned(args)
 	else -- If no mark point defined (yet), just respawn the group at ME coords.
 		respawnUnit(args)
-	end
-	
-	printSpawned(args)	
+	end	
 end
