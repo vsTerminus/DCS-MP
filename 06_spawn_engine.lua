@@ -13,10 +13,8 @@ local function relativeRoute(group)
 	
 	for i,wp in pairs(newRoute) do
 		env.info((string.format("WP altitude: %d", wp.alt)))
-		if ( wp.action ~= 'Landing' ) then		-- Don't interfere with Landing WPs - they break if they aren't on an airfield.
-			newRoute[i].x = wp.x + Xdiff
-			newRoute[i].y = wp.y + Ydiff
-		end
+		newRoute[i].x = wp.x + Xdiff
+		newRoute[i].y = wp.y + Ydiff			
 	end
 	return newRoute
 end
